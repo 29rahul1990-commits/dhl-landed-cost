@@ -1,0 +1,18 @@
+services:
+  - type: web
+    name: dhl-landed-cost-proxy
+    runtime: docker
+    rootDir: server
+    plan: free
+    healthCheckPath: /healthz
+    envVars:
+      - { key: SHOPIFY_API_SECRET, sync: false }
+      - { key: DHL_ENV, value: test }
+      - { key: DHL_SITE_ID, sync: false }
+      - { key: DHL_PASSWORD, sync: false }
+      - { key: DHL_ACCOUNT_NUMBER, sync: false }
+      - { key: ORIGIN_COUNTRY, value: IN }
+      - { key: ORIGIN_POSTCODE, value: "201301" }
+      - { key: ORIGIN_CITY, value: NOIDA }
+      - { key: DEFAULT_ORIGIN_COUNTRY, value: IN }
+      - { key: DEFAULT_HS_CODE, sync: false }

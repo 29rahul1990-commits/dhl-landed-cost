@@ -1,0 +1,41 @@
+{%- if product -%}
+{%- assign cur = product.selected_or_first_available_variant -%}
+<div class="dlc-root"
+     data-endpoint="/apps/landed-cost/estimate"
+     data-currency="{{ cart.currency.iso_code }}"
+     data-hs="{{ product.metafields.custom.hs_code.value | escape }}"
+     data-origin="{{ product.metafields.custom.country_of_origin.value | escape }}"
+     data-name="{{ product.title | escape }}"
+     data-variant="{{ cur.id }}">
+  <h3 class="dlc-title">{{ block.settings.heading }}</h3>
+  <div class="dlc-form">
+    <select class="dlc-country" aria-label="Destination country">
+      {%- for country in localization.available_countries -%}
+        <option value="{{ country.iso_code }}" {% if country.iso_code == localization.country.iso_code %}selected{% endif %}>{{ country.name }}</option>
+      {%- endfor -%}
+    </select>
+    <input class="dlc-city" type="text" placeholder="City" aria-label="City" autocomplete="address-level2">
+    <input class="dlc-postcode" type="text" placeholder="Postcode" aria-label="Postcode" autocomplete="postal-code">
+    <button type="button" class="dlc-btn">{{ block.settings.button_label }}</button>
+  </div>
+  <div class="dlc-result" role="status" aria-live="polite"></div>
+  <script type="application/json" class="dlc-variants">
+    [{%- for v in product.variants -%}{"id":{{ v.id }},"price":{{ v.price }},"grams":{{ v.weight | default: 0 }}}{% unless forloop.last %},{% endunless %}{%- endfor -%}]
+  </script>
+</div>
+{%- endif -%}
+
+{% schema %}
+{
+  "name": "Duties & taxes estimator",
+  "target": "section",
+  "stylesheet": "landed-cost.css",
+  "javascript": "landed-cost.js",
+  "templates": ["product"],
+  "settings": [
+    { "type": "text", "id": "heading", "label": "Heading", "default": "Estimate import duties & taxes" },
+    { "type": "text", "id": "button_label", "label": "Button label", "default": "Estimate" }
+  ],
+  "presets": [{ "name": "Duties & taxes estimator" }]
+}
+{% endschema %}
