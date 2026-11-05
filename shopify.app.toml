@@ -1,17 +1,17 @@
 # Fill client_id after creating the app in the Shopify Dev Dashboard / `shopify app config link`
 name = "DHL Landed Cost Estimator"
-client_id = "REPLACE_WITH_CLIENT_ID"
-application_url = "https://YOUR-SERVER.onrender.com"
+client_id = "08cc179638139f6013f2331b157739f4"
+application_url = "https://dhl-landed-cost-proxy.onrender.com"
 embedded = false
 
 [access_scopes]
 scopes = ""
 
 [auth]
-redirect_urls = ["https://YOUR-SERVER.onrender.com/auth/callback"]
+redirect_urls = ["https://dhl-landed-cost-proxy.onrender.com/auth/callback"]
 
 [app_proxy]
-url = "https://YOUR-SERVER.onrender.com"
+url = "https://dhl-landed-cost-proxy.onrender.com"
 subpath = "landed-cost"
 prefix = "apps"
 
